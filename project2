@@ -1,0 +1,122 @@
+-- Create Database
+CREATE DATABASE employee_management;
+
+-- Use Database
+USE employee_management;
+
+-- Create Department Table
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50) NOT NULL
+);
+
+-- Insert Department Data
+INSERT INTO departments VALUES
+(1, 'HR'),
+(2, 'IT'),
+(3, 'Finance'),
+(4, 'Marketing');
+
+-- Create Employee Table
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50) NOT NULL,
+    age INT,
+    city VARCHAR(50),
+    salary DECIMAL(10,2),
+    joining_date DATE,
+    dept_id INT,
+    FOREIGN KEY (dept_id) 
+    REFERENCES departments(dept_id)
+);
+
+-- Insert Employee Data
+INSERT INTO employees VALUES
+(101, 'Rohan', 25, 'Delhi', 35000, '2024-01-10', 2),
+(102, 'Mohit', 24, 'Ghaziabad', 40000, '2024-02-15', 1),
+(103, 'Tarun', 27, 'Noida', 50000, '2024-03-12', 3),
+(104, 'Salim', 26, 'Meerut', 45000, '2024-04-18', 2),
+(105, 'Varun', 28, 'Delhi', 55000, '2024-05-20', 4);
+
+-- Show All Employees
+SELECT * FROM employees;
+
+-- Show Employee Name and Salary
+SELECT emp_name, salary
+FROM employees;
+
+-- Employees with Salary Greater Than 40000
+SELECT *
+FROM employees
+WHERE salary > 40000;
+
+-- Employees from Delhi
+SELECT *
+FROM employees
+WHERE city = 'Delhi';
+
+-- Sort Employees by Salary (Highest to Lowest)
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+
+-- Top 3 Highest Paid Employees
+SELECT *
+FROM employees
+ORDER BY salary DESC
+LIMIT 3;
+
+-- Update Employee Salary
+UPDATE employees
+SET salary = 60000
+WHERE emp_id = 102;
+
+-- Delete Employee Record
+DELETE FROM employees
+WHERE emp_id = 105;
+
+-- Count Total Employees
+SELECT COUNT(*) AS total_employees
+FROM employees;
+
+-- Average Salary
+SELECT AVG(salary) AS average_salary
+FROM employees;
+
+-- Highest Salary Employee
+SELECT *
+FROM employees
+ORDER BY salary DESC
+LIMIT 1;
+
+-- JOIN Query (Employee + Department)
+SELECT 
+e.emp_id,
+e.emp_name,
+d.dept_name,
+e.salary
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id;
+
+-- Department-wise Employees
+SELECT 
+d.dept_name,
+e.emp_name
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id;
+
+-- Create View
+CREATE VIEW employee_report AS
+SELECT 
+e.emp_name,
+d.dept_name,
+e.salary
+FROM employees e
+JOIN departments d
+ON e.dept_id = d.dept_id;
+
+-- Show View
+SELECT * FROM employee_report;
+
