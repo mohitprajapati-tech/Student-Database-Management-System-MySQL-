@@ -1,0 +1,82 @@
+-- Create Database
+CREATE DATABASE student_management;
+
+-- Use Database
+USE student_management;
+
+-- Create Student Table
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50) NOT NULL,
+    course VARCHAR(50),
+    age INT,
+    city VARCHAR(50),
+    marks INT
+);
+
+-- Insert Data
+INSERT INTO students VALUES
+(101, 'Rohan', 'BCA', 20, 'Delhi', 85),
+(102, 'Mohit', 'B.Tech', 21, 'Ghaziabad', 90),
+(103, 'Tarun', 'BCA', 22, 'Noida', 78),
+(104, 'Salim', 'B.Tech', 20, 'Meerut', 88),
+(105, 'Varun', 'BCA', 21, 'Delhi', 92);
+
+-- Show All Students
+SELECT * FROM students;
+
+-- Show Specific Columns
+SELECT student_name, course, marks 
+FROM students;
+
+-- Find Students with Marks Greater than 80
+SELECT * 
+FROM students
+WHERE marks > 80;
+
+-- Find BCA Students
+SELECT * 
+FROM students
+WHERE course = 'BCA';
+
+-- Sort Students by Marks (Highest to Lowest)
+SELECT * 
+FROM students
+ORDER BY marks DESC;
+
+-- Top 3 Students
+SELECT * 
+FROM students
+ORDER BY marks DESC
+LIMIT 3;
+
+-- Update Student Marks
+UPDATE students
+SET marks = 95
+WHERE student_id = 102;
+
+-- Delete Student Record
+DELETE FROM students
+WHERE student_id = 103;
+
+-- Count Total Students
+SELECT COUNT(*) AS total_students
+FROM students;
+
+-- Find Average Marks
+SELECT AVG(marks) AS average_marks
+FROM students;
+
+-- Highest Marks Student
+SELECT * 
+FROM students
+ORDER BY marks DESC
+LIMIT 1;
+
+-- Create View
+CREATE VIEW student_report AS
+SELECT student_name, course, marks
+FROM students;
+
+-- Show View
+SELECT * FROM student_report;
